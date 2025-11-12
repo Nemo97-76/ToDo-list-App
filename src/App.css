@@ -1,0 +1,180 @@
+*{
+  margin: 0;
+  padding: 0;
+  border-radius: 10px;
+
+}
+:root{
+  /*light*/
+  --perwinkle:#CAD8F7;
+--perwinkle-2:#BCCDF1;
+--glaucous:#5274B7;
+--true-blue:#4D6EAB;
+--YinMn-blue:#39547F;
+/*dark*/
+--oxford-blue:#0B1E47;
+--space-cadet:#112650;
+--lapis-lazuli:#43629F;
+--true-blue-dark:#4D6EAB;
+--vista-blue:#829cc7;
+}
+body{
+background-color: var(--perwinkle-2);
+}
+.App{
+  position: relative;
+}
+.notesIMG{
+  border-radius: 0;
+  width: 100%;
+  height: 200px;
+  background-repeat: no-repeat;
+  background-size: 100% 400px;
+  background-position: center;
+  background-image: url("./images/aa68b9419cb9c664559259f150ca6009.jpg");
+}
+.notesIMG h2{
+  cursor: default;
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  font-size: 3rem;
+  color: white;
+   font-family: "Noto Sans Display", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 200;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+}
+.notesIMG button{
+  position: absolute;
+  right: -50px;
+  z-index: 1;
+  margin-left: 25px;
+  border: none;
+  background-color: transparent;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+.notesIMG::after{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 200px;
+  background-color: #43629f84;
+}
+
+.inputs{
+  width: 60%;
+  height: 20rem;
+  position: absolute;
+  z-index: 5;
+  left: 50%;
+  top: 100px;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#taskInput{
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  height: 60px;
+  position: relative;
+  background-color: var(--space-cadet);
+}
+#taskInput button{
+  width: 15%;
+  font-size: 2rem;
+  border: none;
+  background-color: transparent;
+  color: white;
+}
+#taskInput button:hover{
+  background-color: var(--oxford-blue);
+  cursor: pointer;
+}
+#taskInput input{
+  margin-left: 10px;
+  width:80%;
+  border: none;
+  padding: 5px 0;
+  font-size: 1.2rem;
+  color: rgb(194, 194, 194);
+  background-color: transparent;
+}
+#taskInput input:focus{
+  outline: none;
+}
+#taskInput input::placeholder{
+  color: rgb(97, 97, 97);
+  font-size: 1.2rem;
+}
+.tasks{
+  margin-top: 25px;
+  width: 100%;
+  height: auto;
+  background-color: var(--space-cadet);
+}
+.checkbox-wrapper{
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+ }
+ .task{
+  margin-top: 15px;
+ }
+ .task-buttons{
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  border: none;
+  width: 50px;
+  height: 40px;
+  background-color: transparent;
+ }
+ .task-buttons:hover{
+  background-color: var(--oxford-blue);
+ }
+ .task-buttons[id="delete"]{
+  color: rgb(246, 71, 71);
+ }
+ .task-buttons[id="edit"]{
+  margin-right: -70px;
+  color: var(--glaucous)
+ }
+.custom-checkbox{
+accent-color: var(--true-blue);
+transform: scale(1.5);
+margin-left:10px ;
+}
+.custom-checkbox:hover{
+  accent-color: var(--true-blue);
+}
+.labeltext{
+  cursor: pointer;
+  color: white;
+  font-size: 1.2rem;
+  margin-left: -60px;
+  margin-top: 10px;
+   font-family: "Noto Sans Display", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 200;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+}
+
+.lineThrough{
+  text-decoration: line-through;
+  color: gray;
+}
