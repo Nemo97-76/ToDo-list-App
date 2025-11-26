@@ -1,16 +1,41 @@
-import React from "react";
+import React, { useState }  from "react";
 import "./App.css";
 import { AiOutlineMoon, AiOutlineSun } from "react-icons/ai";
 import { FiEdit2 } from "react-icons/fi";
 import { MdOutlineDelete } from "react-icons/md";
 import { IoAdd } from "react-icons/io5";
 
+import Button from '@mui/joy/Button';
+import FormControl from '@mui/joy/FormControl';
+import FormLabel from '@mui/joy/FormLabel';
+import Input from '@mui/joy/Input';
+import Modal from '@mui/joy/Modal';
+import ModalDialog from '@mui/joy/ModalDialog';
+import DialogTitle from '@mui/joy/DialogTitle';
+import DialogContent from '@mui/joy/DialogContent';
+import Stack from '@mui/joy/Stack';
+
+
+// my todo list in array  must have id ,text and completed(boolean) properties
+//never use a single boolean state for all items
+//use .map to update specific item based on its id
+// pass task.id to identify which task was clicked
+//use todo.completed (not shared  variable) for checkbox and styling
+
+//TODO: 1. edit task functionality with modal
+//TODO: 2. dark/light mode styling improvements
 function App() {
-  const [checked, setChecked] = React.useState(false);
-  const [newTask, setNewTask] = React.useState("");
-  const [DarkMode, setDarkMode] = React.useState(false);
+  const [checked, setChecked] = useState(false);
+  const [newTask, setNewTask] = useState("");
+
+const [editingIndex, setEditingIndex] = useState(-1);
+const [editText, setEditText] = useState('');  
+  const [open, setOpen] = useState(false);
+
+  const [DarkMode, setDarkMode] = useState(false);
+  
   // tasks state: initialize from localStorage (if present)
-  const [tasks, setTasks] = React.useState(() => {
+  const [tasks, setTasks] = useState(() => {
     try {
       const saved = localStorage.getItem("tasks");
       return saved ? JSON.parse(saved) : [];
@@ -19,7 +44,11 @@ function App() {
       return [];
     }
   });
-
+/* console.log(tasks);
+ */
+const ToggleToDo=(id)=>{
+  setTasks(tasks.map((task)=>task.id===id ? {...task, completed: !task.completed} : task))
+}
   // persist tasks to localStorage whenever they change
   React.useEffect(() => {
     try {
@@ -33,25 +62,76 @@ function App() {
   const handleAddTask = () => {
     const text = newTask.trim();
     if (!text) return; // ignore empty entries
-    const newItem = { id: Date.now(), text };
+    const newItem = { id: Date.now(), text,completed: false };
     setTasks((prev) => [...prev, newItem]);
     setNewTask("");
   };
 
-  console.log("newTask:", newTask);
-  console.log("tasks:", tasks);
+  //edit task handler
+  const startEdit = (index, text) => {
+    setEditingIndex(index);
+    setEditText(text);
+  };
+
+  const saveEdit = (index) => {
+    if(!editText.trim()) return; // ignore empty edits
+    const newTasks = [...tasks];
+    newTasks[index].text = editText
+    setTasks(newTasks);
+    setEditingIndex(-1);
+  }
+
+  //delete task handler
+  const deleteTask = (index) => {
+    const newTasks = tasks.filter((_, i) => i !== index);
+    setTasks(newTasks);
+  };
+
+  const EditWModal=()=>{
+ const [open, setOpen] = useState(false);
+  return (
+    <React.Fragment>
+      <Button
+        onClick={() => setOpen(true)}
+        id="edit"
+      >
+<FiEdit2/>
+        </Button>
+      <Modal open={open} onClose={() => setOpen(false)}>
+        <ModalDialog>
+          <DialogTitle>Edit task</DialogTitle>
+          <DialogContent>update task</DialogContent>
+          <form
+            onSubmit={(event) => {
+              event.preventDefault();
+              setOpen(false);
+            }}
+          >
+            <Stack spacing={2}>
+              <FormControl>
+                <FormLabel>task</FormLabel>
+                <Input autoFocus required />
+              </FormControl>
+              <Button type="submit" onClick={()=>startEdit(index,tasks.text)}>Submit</Button>
+            </Stack>
+          </form>
+        </ModalDialog>
+      </Modal>
+    </React.Fragment>
+    )  }
 
   return (
     <div className="App">
       <div className="notesIMG">
         <h2>
           ToDo list App
-          <button onClick={() => setDarkMode(!DarkMode)}>
+          <Button id="Dark-LightBTN" onClick={() => setDarkMode(!DarkMode)}>
             {DarkMode ? <AiOutlineSun /> : <AiOutlineMoon />}
-          </button>
+          </Button>
         </h2>
       </div>
-      <div className="inputs">
+
+      <div className= "inputs">
         <div id="taskInput">
           <input
             value={newTask}
@@ -65,31 +145,31 @@ function App() {
         </div>
 
         <div className="tasks">
-          {tasks.map((task) => (
+          {tasks.map((task,index) => (
             <div className="task">
-              <div className="checkbox-wrapper">
+              <div className="checkbox-wrapper" key={index}>
                 <input
-                  onClick={() => setChecked(!checked)}
+                  onClick={() => ToggleToDo(task.id)}
+                  checked={task.completed}
                   id="task"
                   type="checkbox"
                   className="custom-checkbox"
                 />
                 <label
                   for="task"
-                  className={checked ? "lineThrough labeltext" : "labeltext"}
+                  className={task.completed ? "lineThrough labeltext" : "labeltext"}
                 >
                   {task.text}
                 </label>
 
-                <button id="edit" className="task-buttons">
-                  <FiEdit2 />
-                </button>
-                <button id="delete" className="task-buttons">
+              <EditWModal />
+                <button id="delete" onClick={()=>deleteTask(index)} className="task-buttons">
                   <MdOutlineDelete />
                 </button>
               </div>
             </div>
           ))}
+          <span>total tasks : <b>{tasks.length}</b> </span>
         </div>
       </div>
     </div>

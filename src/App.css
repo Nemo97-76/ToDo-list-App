@@ -70,6 +70,9 @@ background-color: var(--perwinkle-2);
   background-color: #43629f84;
 }
 
+#Dark-LightBTN:hover{
+  background-color: transparent !important;
+}
 .inputs{
   width: 60%;
   height: 20rem;
@@ -82,13 +85,14 @@ background-color: var(--perwinkle-2);
   flex-direction: column;
   align-items: center;
 }
+
 #taskInput{
   display: flex;
   justify-content: space-around;
   width: 100%;
   height: 60px;
   position: relative;
-  background-color: var(--space-cadet);
+  background-color: var(--YinMn-blue);
 }
 #taskInput button{
   width: 15%;
@@ -98,7 +102,6 @@ background-color: var(--perwinkle-2);
   color: white;
 }
 #taskInput button:hover{
-  background-color: var(--oxford-blue);
   cursor: pointer;
 }
 #taskInput input{
@@ -114,22 +117,34 @@ background-color: var(--perwinkle-2);
   outline: none;
 }
 #taskInput input::placeholder{
-  color: rgb(97, 97, 97);
   font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.479);
 }
 .tasks{
   margin-top: 25px;
   width: 100%;
   height: auto;
-  background-color: var(--space-cadet);
+  background-color: var(--YinMn-blue);
+}
+.tasks span{
+  display: block;
+  color: white;
+  font-size: 1.2rem;
+  text-align: center;
+   font-family: "Noto Sans Display", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 200;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
 }
 .checkbox-wrapper{
   width: 100%;
   height: 60px;
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
- }
+display :grid;
+grid-template-columns:4% 76% 10% 10%;
+ 
+}
  .task{
   margin-top: 15px;
  }
@@ -140,17 +155,18 @@ background-color: var(--perwinkle-2);
   border: none;
   width: 50px;
   height: 40px;
-  background-color: transparent;
- }
- .task-buttons:hover{
-  background-color: var(--oxford-blue);
  }
  .task-buttons[id="delete"]{
   color: rgb(246, 71, 71);
+  height: 100%;
+  background-color: transparent;
  }
- .task-buttons[id="edit"]{
-  margin-right: -70px;
-  color: var(--glaucous)
+ #edit{
+  color: white;
+  height: 100%;
+  background-color: transparent !important;
+  border: none !important;
+  font-size: larger;
  }
 .custom-checkbox{
 accent-color: var(--true-blue);
@@ -161,10 +177,11 @@ margin-left:10px ;
   accent-color: var(--true-blue);
 }
 .labeltext{
+  width: 80%;
   cursor: pointer;
   color: white;
   font-size: 1.2rem;
-  margin-left: -60px;
+margin-left:25px;
   margin-top: 10px;
    font-family: "Noto Sans Display", sans-serif;
   font-optical-sizing: auto;
