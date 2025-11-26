@@ -1,16 +1,53 @@
-# React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+# ToDo List App
+A simple and fully functional **ToDo List Application** built with React and vite. Add, edit, complete, and delete tasks with ease — all in a clean and responsive interface.
+----
+## Features
+- **Add Tasks**: Quickly create new to-do items.
+- **Mark as Complete**: Toggle tasks between pending and completed.
+- **Edit Tasks**: Update task descriptions inline.
+- **Delete Tasks**: Remove tasks you no longer need.
+- **Persistent Storage**: Tasks are saved in `localStorage` — no data loss on refresh.
+- **Responsive Design**: Works seamlessly on desktop and mobile devices.
+- **Clean UI**: Minimalist and user-friendly interface.
+---
+## Tech Stack
+- **HTML5**
+- **CSS3** (with Flexbox/Grid for layout)
+- **React and vite** 
+> No frameworks. No build tools. Pure, lightweight, and fast.
+---
+## Installation
+Follow these steps to set up and run the project locally:
+1. **Clone the Repository**:
+```bash
+git clone https://github.com/Nemo97-76/ToDo-list-App.git
+cd ToDo-list-App
+```
+2. **Start the Development Server**:
+   ```bash
+   npm run dev
+   ```
+- The app will run on `http://localhost:5173` (or the port specified by Vite).
+> No server or installation required!
+----
+## Usage
+- **Access the App**: Open `http://localhost:5173` in your browser.
+----
+## Project Structure
+```plaintext
+ToDo-list-App/
+├── index.html         # Main HTML structure
+├── style.css          # Styling and responsive design
+├── script.js          # Core logic and interactivity
+├── assets/            # (Optional) Icons, images
+├── screenshot.png     # App preview
+└── README.md          # This file
+```
+----
+## Live Demo
+To view Demo : <a href="https://benevolent-figolla-0c9d2e.netlify.app/">Demo</a>
+----
+## Contact
+- **GitHub**: [Nemo97-76](https://github.com/Nemo97-76)
+- **Email**: tasneemyoussef61@gmail.com
+- **LinkedIn**: https://www.linkedin.com/in/tasneem-youssef-770708278/
