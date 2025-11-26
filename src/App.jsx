@@ -1,9 +1,9 @@
 import React, { useState }  from "react";
 import "./App.css";
 import { AiOutlineMoon, AiOutlineSun } from "react-icons/ai";
-import { FiEdit2 } from "react-icons/fi";
-import { MdOutlineDelete } from "react-icons/md";
-import { IoAdd } from "react-icons/io5";
+import EditRoundedIcon from '@mui/icons-material/EditRounded';
+import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
+import AddRoundedIcon from '@mui/icons-material/AddRounded';
 
 import Button from '@mui/joy/Button';
 import FormControl from '@mui/joy/FormControl';
@@ -94,8 +94,9 @@ const ToggleToDo=(id)=>{
       <Button
         onClick={() => setOpen(true)}
         id="edit"
+        className="task-buttons"
+        endDecorator={<EditRoundedIcon sx={{color:"rgb(48, 218, 48)"}} />}
       >
-<FiEdit2/>
         </Button>
       <Modal open={open} onClose={() => setOpen(false)}>
         <ModalDialog>
@@ -112,7 +113,7 @@ const ToggleToDo=(id)=>{
                 <FormLabel>task</FormLabel>
                 <Input autoFocus required />
               </FormControl>
-              <Button type="submit" onClick={()=>startEdit(index,tasks.text)}>Submit</Button>
+              <Button type="submit"  onClick={()=>startEdit(index,tasks.text)}>Submit</Button>
             </Stack>
           </form>
         </ModalDialog>
@@ -139,10 +140,12 @@ const ToggleToDo=(id)=>{
             type="text"
             placeholder="Add a new task..."
           />
-          <button id="addTask" onClick={handleAddTask}>
-            <IoAdd />
+          <Button id="addTask" onClick={handleAddTask} endDecorator={<AddRoundedIcon />}>
+          </Button>
+{/*           <button id="addTask" onClick={handleAddTask}>
+            <AddRoundedIcon />
           </button>
-        </div>
+ */}        </div>
 
         <div className="tasks">
           {tasks.map((task,index) => (
@@ -163,9 +166,13 @@ const ToggleToDo=(id)=>{
                 </label>
 
               <EditWModal />
-                <button id="delete" onClick={()=>deleteTask(index)} className="task-buttons">
+              {/*   <button id="delete" onClick={()=>deleteTask(index)} className="task-buttons">
                   <MdOutlineDelete />
-                </button>
+                </button> */}
+
+                <Button id="delete" onClick={()=>deleteTask(index)} className="task-buttons" endDecorator={<DeleteForeverRoundedIcon sx={{color:"rgb(192, 99, 99)" ,fontSize:"35px"}}/>}>
+                </Button>
+              
               </div>
             </div>
           ))}
