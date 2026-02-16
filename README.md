@@ -49,7 +49,7 @@ ToDo-list-App/
 ```
 ----
 ## Live Demo
-To view Demo : <a href="https://benevolent-figolla-0c9d2e.netlify.app/">Demo</a>
+To view Demo : <a href="https://todolist-97.netlify.app/">Demo</a>
 ----
 ## Contact
 - **GitHub**: [Nemo97-76](https://github.com/Nemo97-76)
