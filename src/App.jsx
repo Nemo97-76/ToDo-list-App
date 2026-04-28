@@ -1,20 +1,19 @@
-import React, { useState }  from "react";
+import React, { useState } from "react";
 import "./App.css";
 import { AiOutlineMoon, AiOutlineSun } from "react-icons/ai";
-import EditRoundedIcon from '@mui/icons-material/EditRounded';
-import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
-import AddRoundedIcon from '@mui/icons-material/AddRounded';
+import EditRoundedIcon from "@mui/icons-material/EditRounded";
+import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
+import AddRoundedIcon from "@mui/icons-material/AddRounded";
 
-import Button from '@mui/joy/Button';
-import FormControl from '@mui/joy/FormControl';
-import FormLabel from '@mui/joy/FormLabel';
-import Input from '@mui/joy/Input';
-import Modal from '@mui/joy/Modal';
-import ModalDialog from '@mui/joy/ModalDialog';
-import DialogTitle from '@mui/joy/DialogTitle';
-import DialogContent from '@mui/joy/DialogContent';
-import Stack from '@mui/joy/Stack';
-
+import Button from "@mui/joy/Button";
+import FormControl from "@mui/joy/FormControl";
+import FormLabel from "@mui/joy/FormLabel";
+import Input from "@mui/joy/Input";
+import Modal from "@mui/joy/Modal";
+import ModalDialog from "@mui/joy/ModalDialog";
+import DialogTitle from "@mui/joy/DialogTitle";
+import DialogContent from "@mui/joy/DialogContent";
+import Stack from "@mui/joy/Stack";
 
 // my todo list in array  must have id ,text and completed(boolean) properties
 //never use a single boolean state for all items
@@ -28,12 +27,12 @@ function App() {
   const [checked, setChecked] = useState(false);
   const [newTask, setNewTask] = useState("");
 
-const [editingIndex, setEditingIndex] = useState(-1);
-const [editText, setEditText] = useState('');  
+  const [editingIndex, setEditingIndex] = useState(-1);
+  const [editText, setEditText] = useState("");
   const [open, setOpen] = useState(false);
 
   const [DarkMode, setDarkMode] = useState(false);
-  
+
   // tasks state: initialize from localStorage (if present)
   const [tasks, setTasks] = useState(() => {
     try {
@@ -44,11 +43,15 @@ const [editText, setEditText] = useState('');
       return [];
     }
   });
-/* console.log(tasks);
- */
-const ToggleToDo=(id)=>{
-  setTasks(tasks.map((task)=>task.id===id ? {...task, completed: !task.completed} : task))
-}
+  /* console.log(tasks);
+   */
+  const ToggleToDo = (id) => {
+    setTasks(
+      tasks.map((task) =>
+        task.id === id ? { ...task, completed: !task.completed } : task,
+      ),
+    );
+  };
   // persist tasks to localStorage whenever they change
   React.useEffect(() => {
     try {
@@ -62,7 +65,7 @@ const ToggleToDo=(id)=>{
   const handleAddTask = () => {
     const text = newTask.trim();
     if (!text) return; // ignore empty entries
-    const newItem = { id: Date.now(), text,completed: false };
+    const newItem = { id: Date.now(), text, completed: false };
     setTasks((prev) => [...prev, newItem]);
     setNewTask("");
   };
@@ -74,12 +77,12 @@ const ToggleToDo=(id)=>{
   };
 
   const saveEdit = (index) => {
-    if(!editText.trim()) return; // ignore empty edits
+    if (!editText.trim()) return; // ignore empty edits
     const newTasks = [...tasks];
-    newTasks[index].text = editText
+    newTasks[index].text = editText;
     setTasks(newTasks);
     setEditingIndex(-1);
-  }
+  };
 
   //delete task handler
   const deleteTask = (index) => {
@@ -87,39 +90,44 @@ const ToggleToDo=(id)=>{
     setTasks(newTasks);
   };
 
-  const EditWModal=()=>{
- const [open, setOpen] = useState(false);
-  return (
-    <React.Fragment>
-      <Button
-        onClick={() => setOpen(true)}
-        id="edit"
-        className="task-buttons"
-        endDecorator={<EditRoundedIcon sx={{color:"rgb(48, 218, 48)"}} />}
-      >
-        </Button>
-      <Modal open={open} onClose={() => setOpen(false)}>
-        <ModalDialog>
-          <DialogTitle>Edit task</DialogTitle>
-          <DialogContent>update task</DialogContent>
-          <form
-            onSubmit={(event) => {
-              event.preventDefault();
-              setOpen(false);
-            }}
-          >
-            <Stack spacing={2}>
-              <FormControl>
-                <FormLabel>task</FormLabel>
-                <Input autoFocus required />
-              </FormControl>
-              <Button type="submit"  onClick={()=>startEdit(index,tasks.text)}>Submit</Button>
-            </Stack>
-          </form>
-        </ModalDialog>
-      </Modal>
-    </React.Fragment>
-    )  }
+  const EditWModal = () => {
+    const [open, setOpen] = useState(false);
+    return (
+      <React.Fragment>
+        <Button
+          onClick={() => setOpen(true)}
+          id="edit"
+          className="task-buttons"
+          endDecorator={<EditRoundedIcon sx={{ color: "rgb(48, 218, 48)" }} />}
+        ></Button>
+        <Modal open={open} onClose={() => setOpen(false)}>
+          <ModalDialog>
+            <DialogTitle>Edit task</DialogTitle>
+            <DialogContent>update task</DialogContent>
+            <form
+              onSubmit={(event) => {
+                event.preventDefault();
+                setOpen(false);
+              }}
+            >
+              <Stack spacing={2}>
+                <FormControl>
+                  <FormLabel>task</FormLabel>
+                  <Input autoFocus required />
+                </FormControl>
+                <Button
+                  type="submit"
+                  onClick={() => startEdit(index, tasks.text)}
+                >
+                  Submit
+                </Button>
+              </Stack>
+            </form>
+          </ModalDialog>
+        </Modal>
+      </React.Fragment>
+    );
+  };
 
   return (
     <div className="App">
@@ -132,7 +140,7 @@ const ToggleToDo=(id)=>{
         </h2>
       </div>
 
-      <div className= "inputs">
+      <div className="inputs">
         <div id="taskInput">
           <input
             value={newTask}
@@ -140,15 +148,15 @@ const ToggleToDo=(id)=>{
             type="text"
             placeholder="Add a new task..."
           />
-          <Button id="addTask" onClick={handleAddTask} endDecorator={<AddRoundedIcon />}>
-          </Button>
-{/*           <button id="addTask" onClick={handleAddTask}>
-            <AddRoundedIcon />
-          </button>
- */}        </div>
+          <Button
+            id="addTask"
+            onClick={handleAddTask}
+            endDecorator={<AddRoundedIcon />}
+          ></Button>
+        </div>
 
         <div className="tasks">
-          {tasks.map((task,index) => (
+          {tasks.map((task, index) => (
             <div className="task">
               <div className="checkbox-wrapper" key={index}>
                 <input
@@ -160,23 +168,53 @@ const ToggleToDo=(id)=>{
                 />
                 <label
                   for="task"
-                  className={task.completed ? "lineThrough labeltext" : "labeltext"}
+                  className={
+                    task.completed ? "lineThrough labeltext" : "labeltext"
+                  }
                 >
                   {task.text}
                 </label>
 
-              <EditWModal />
-              {/*   <button id="delete" onClick={()=>deleteTask(index)} className="task-buttons">
+                <EditWModal />
+                {/*   <button id="delete" onClick={()=>deleteTask(index)} className="task-buttons">
                   <MdOutlineDelete />
                 </button> */}
 
-                <Button id="delete" onClick={()=>deleteTask(index)} className="task-buttons" endDecorator={<DeleteForeverRoundedIcon sx={{color:"rgb(192, 99, 99)" ,fontSize:"35px"}}/>}>
-                </Button>
-              
+                <Button
+                  id="delete"
+                  onClick={() => deleteTask(index)}
+                  className="task-buttons"
+                  endDecorator={
+                    <DeleteForeverRoundedIcon
+                      sx={{ color: "rgb(192, 99, 99)", fontSize: "35px" }}
+                    />
+                  }
+                ></Button>
               </div>
             </div>
           ))}
-          <span>total tasks : <b>{tasks.length}</b> </span>
+          {tasks.length ? (
+            <span>
+              total tasks : <b>{tasks.length}</b>{" "}
+            </span>
+          ) : (
+            " "
+          )}
+          {tasks.length === 0 && (
+            <p
+              style={{
+                textAlign: "center",
+                color: "white",
+                position: "absolute",
+                left: "50%",
+                top: "50%",
+                translate: "-50% 150%",
+                display: "inline",
+              }}
+            >
+              No tasks.
+            </p>
+          )}
         </div>
       </div>
     </div>
