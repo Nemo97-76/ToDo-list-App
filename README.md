@@ -1,6 +1,10 @@
 # ToDo List App
 A simple and fully functional **ToDo List Application** built with React and vite. Add, edit, complete, and delete tasks with ease — all in a clean and responsive interface.
 ----
+<p align="center">
+  <img src="./src/images/poster.jpg" alt="Preview" width="800"/>
+</p>
+
 ## Features
 - **Add Tasks**: Quickly create new to-do items.
 - **Mark as Complete**: Toggle tasks between pending and completed.
@@ -45,7 +49,7 @@ ToDo-list-App/
 ```
 ----
 ## Live Demo
-To view Demo : <a href="https://benevolent-figolla-0c9d2e.netlify.app/">Demo</a>
+To view Demo : <a href="https://todolist-97.netlify.app/">Demo</a>
 ----
 ## Contact
 - **GitHub**: [Nemo97-76](https://github.com/Nemo97-76)
