@@ -3,22 +3,20 @@
   padding: 0;
   border-radius: 10px;
 }
-:root {
+[data-theme="dark"] {
   /*light*/
-  --perwinkle: #cad8f7;
-  --perwinkle-2: #bccdf1;
-  --glaucous: #5274b7;
-  --true-blue: #4d6eab;
-  --YinMn-blue: #39547f;
-  /*dark*/
-  --oxford-blue: #0b1e47;
-  --space-cadet: #112650;
-  --lapis-lazuli: #43629f;
-  --true-blue-dark: #4d6eab;
-  --vista-blue: #829cc7;
+  --main: #262e45;
+  --text-color: white;
 }
+:root {
+  /*dark*/
+  --main: #aec8e2;
+  --text-color: black;
+}
+
 body {
-  background-color: var(--perwinkle-2);
+  background-color: #87abd3;
+  color: var(--text-color);
 }
 .App {
   position: relative;
@@ -55,7 +53,7 @@ body {
   border: none;
   background-color: transparent;
   color: white;
-  font-size: 1.5rem;
+  font-size: 2rem;
   cursor: pointer;
 }
 .notesIMG::after {
@@ -67,7 +65,7 @@ body {
   height: 200px;
   background-color: #43629f84;
 }
-
+/*disable the hover effect on the dark-light button*/
 #Dark-LightBTN:hover {
   background-color: transparent !important;
 }
@@ -90,14 +88,14 @@ body {
   width: 100%;
   height: 60px;
   position: relative;
-  background-color: var(--YinMn-blue);
+  background-color: var(--main);
 }
 #taskInput button {
   width: 15%;
   font-size: 2rem;
   border: none;
   background-color: transparent;
-  color: white;
+  color: var(--text-color);
 }
 #taskInput button:hover {
   cursor: pointer;
@@ -108,7 +106,7 @@ body {
   border: none;
   padding: 5px 0;
   font-size: 1.2rem;
-  color: rgb(194, 194, 194);
+  color: var(--text-color);
   background-color: transparent;
 }
 #taskInput input:focus {
@@ -116,18 +114,19 @@ body {
 }
 #taskInput input::placeholder {
   font-size: 1.2rem;
-  color: rgba(255, 255, 255, 0.479);
+  color: var(--text-color);
 }
 .tasks {
+  padding-bottom: 20px;
   margin-top: 25px;
   width: 100%;
   min-height: 5rem;
   height: auto;
-  background-color: var(--YinMn-blue);
+  background-color: var(--main);
 }
 .tasks span {
   display: block;
-  color: white;
+  color: var(--text-color);
   font-size: 1.2rem;
   text-align: center;
   font-family: "Noto Sans Display", sans-serif;
@@ -144,36 +143,44 @@ body {
   align-items: center;
 }
 
+
 .task {
+  margin: auto;
+  width: 80%;
   margin-top: 15px;
 }
 .task-buttons {
-  color: white;
+  color: var(--text-color);
   font-size: 1.5rem;
   cursor: pointer;
   border: none;
   width: 50px;
   height: 40px;
-background-color: transparent !important;
+  background-color: transparent !important;
 }
 #delete {
   height: 100%;
 }
 #edit {
-  color: white;
+  color: var(--text-color);
   height: 100%;
   border: none !important;
   font-size: larger;
-}
-.custom-checkbox {
-  accent-color: var(--true-blue);
-  transform: scale(1.5);
-  margin-left: 10px;
-}
-.custom-checkbox:hover {
-  accent-color: var(--true-blue);
+  margin-left: -20px;
 }
 
+.custom-checkbox {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--text-color);
+  border-radius: 4px;
+  position: relative;
+  cursor: pointer;
+  accent-color: #87abd3;
+}
+.custom-checkbox:hover {
+  accent-color: #87abd3;
+}
 .labeltext {
   pointer-events: none;
   cursor: pointer;
@@ -184,7 +191,7 @@ background-color: transparent !important;
   overflow-wrap: break-word;
   hyphens: auto;
   cursor: pointer;
-  color: white;
+  color: var(--text-color);
   font-size: 1.2rem;
   margin-left: 25px;
   font-family: "Noto Sans Display", sans-serif;
@@ -197,4 +204,37 @@ background-color: transparent !important;
 .lineThrough {
   text-decoration: line-through;
   color: gray;
+}
+#notasks-span {
+  color: var(--text-color);
+  text-align: center;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, 150%);
+  position: absolute;
+  display: inline;
+  font-family: "Noto Sans Display", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}
+.closeBTN{
+  border: none;
+  width: fit-content;
+  height: fit-content;
+  margin-left: auto !important;
+  background-color: transparent !important;
+}
+#closeIcon{
+  font-size: 1.5rem;
+  color: var(--text-color);
+}
+@media (max-width: 997px) {
+  .notesIMG h2 {
+    font-size: 1.5rem;
+  }
+  .notesIMG button {
+    font-size: 1.5rem;
+  }
 }

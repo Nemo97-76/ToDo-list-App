@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import "./App.css";
 import { AiOutlineMoon, AiOutlineSun } from "react-icons/ai";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
-
 import Button from "@mui/joy/Button";
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
@@ -14,6 +13,10 @@ import ModalDialog from "@mui/joy/ModalDialog";
 import DialogTitle from "@mui/joy/DialogTitle";
 import DialogContent from "@mui/joy/DialogContent";
 import Stack from "@mui/joy/Stack";
+import ToggleButton from "./components/toggleBTN";
+import useLocalStorage from "use-local-storage";
+import { IoClose } from "react-icons/io5";
+import { TrendingUp } from "@mui/icons-material";
 
 // my todo list in array  must have id ,text and completed(boolean) properties
 //never use a single boolean state for all items
@@ -22,17 +25,15 @@ import Stack from "@mui/joy/Stack";
 //use todo.completed (not shared  variable) for checkbox and styling
 
 //TODO: 1. edit task functionality with modal
-//TODO: 2. dark/light mode styling improvements
 function App() {
   const [checked, setChecked] = useState(false);
   const [newTask, setNewTask] = useState("");
-
   const [editingIndex, setEditingIndex] = useState(-1);
   const [editText, setEditText] = useState("");
   const [open, setOpen] = useState(false);
-
   const [DarkMode, setDarkMode] = useState(false);
-
+  const perference = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const [editingTaskId, setEditingTaskId] = useState(null);
   // tasks state: initialize from localStorage (if present)
   const [tasks, setTasks] = useState(() => {
     try {
@@ -43,8 +44,7 @@ function App() {
       return [];
     }
   });
-  /* console.log(tasks);
-   */
+
   const ToggleToDo = (id) => {
     setTasks(
       tasks.map((task) =>
@@ -69,57 +69,67 @@ function App() {
     setTasks((prev) => [...prev, newItem]);
     setNewTask("");
   };
-
-  //edit task handler
-  const startEdit = (index, text) => {
-    setEditingIndex(index);
-    setEditText(text);
-  };
-
-  const saveEdit = (index) => {
-    if (!editText.trim()) return; // ignore empty edits
-    const newTasks = [...tasks];
-    newTasks[index].text = editText;
-    setTasks(newTasks);
-    setEditingIndex(-1);
-  };
-
+const ToggleFun=()=>{
+  setDarkMode(!DarkMode);
+  localStorage.setItem("isDark", !DarkMode);
+}
   //delete task handler
   const deleteTask = (index) => {
     const newTasks = tasks.filter((_, i) => i !== index);
     setTasks(newTasks);
   };
 
-  const EditWModal = () => {
+  /*edit fanctionnality*/
+  const EditWModal = ({ task }) => {
     const [open, setOpen] = useState(false);
+    const [inputValue, setInputValue] = useState(task.text);
+    
+    const handleEditClick = () => {
+      setInputValue(task.text);
+      setOpen(true);
+    };
+
+    const handleSubmit = (event) => {
+      event.preventDefault();
+      if (!inputValue.trim()) return;
+      
+      // Update the task in the tasks array
+      setTasks(
+        tasks.map((t) =>
+          t.id === task.id ? { ...t, text: inputValue } : t
+        )
+      );
+      setOpen(false);
+    };
+
     return (
       <React.Fragment>
         <Button
-          onClick={() => setOpen(true)}
+          onClick={handleEditClick}
           id="edit"
           className="task-buttons"
           endDecorator={<EditRoundedIcon sx={{ color: "rgb(48, 218, 48)" }} />}
         ></Button>
-        <Modal open={open} onClose={() => setOpen(false)}>
-          <ModalDialog>
+        <Modal  open={open} onClose={() => setOpen(false)}>
+          <ModalDialog data-theme={DarkMode ? "dark" : "light"}>
+            <Button className="closeBTN" onClick={() => setOpen(false)}>
+              <IoClose id="closeIcon" />
+            </Button>
             <DialogTitle>Edit task</DialogTitle>
-            <DialogContent>update task</DialogContent>
-            <form
-              onSubmit={(event) => {
-                event.preventDefault();
-                setOpen(false);
-              }}
-            >
+            <DialogContent>rewrite the current task</DialogContent>
+            <form onSubmit={handleSubmit}>
               <Stack spacing={2}>
                 <FormControl>
                   <FormLabel>task</FormLabel>
-                  <Input autoFocus required />
+                  <Input
+                    autoFocus={true}
+                    required
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
+                  />
                 </FormControl>
-                <Button
-                  type="submit"
-                  onClick={() => startEdit(index, tasks.text)}
-                >
-                  Submit
+                <Button type="submit">
+                  edit
                 </Button>
               </Stack>
             </form>
@@ -130,13 +140,14 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className="App" data-theme={DarkMode ? "dark" : "light"}>
       <div className="notesIMG">
         <h2>
           ToDo list App
-          <Button id="Dark-LightBTN" onClick={() => setDarkMode(!DarkMode)}>
-            {DarkMode ? <AiOutlineSun /> : <AiOutlineMoon />}
-          </Button>
+          <ToggleButton
+            isChecked={DarkMode}
+            handleChange={ToggleFun}
+          />
         </h2>
       </div>
 
@@ -167,6 +178,7 @@ function App() {
                   className="custom-checkbox"
                 />
                 <label
+                  value={task.text}
                   for="task"
                   className={
                     task.completed ? "lineThrough labeltext" : "labeltext"
@@ -175,10 +187,7 @@ function App() {
                   {task.text}
                 </label>
 
-                <EditWModal />
-                {/*   <button id="delete" onClick={()=>deleteTask(index)} className="task-buttons">
-                  <MdOutlineDelete />
-                </button> */}
+                <EditWModal task={task} />
 
                 <Button
                   id="delete"
@@ -200,21 +209,7 @@ function App() {
           ) : (
             " "
           )}
-          {tasks.length === 0 && (
-            <p
-              style={{
-                textAlign: "center",
-                color: "white",
-                position: "absolute",
-                left: "50%",
-                top: "50%",
-                translate: "-50% 150%",
-                display: "inline",
-              }}
-            >
-              No tasks.
-            </p>
-          )}
+          {tasks.length === 0 && <p id="notasks-span">No tasks.</p>}
         </div>
       </div>
     </div>
