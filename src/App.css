@@ -186,7 +186,7 @@ body {
   cursor: pointer;
   flex: 1;
   line-height: 1.4;
-  word-break: break-all;
+  word-break: none;
   white-space: normal;
   overflow-wrap: break-word;
   hyphens: auto;
@@ -199,6 +199,7 @@ body {
   font-weight: 200;
   font-style: normal;
   font-variation-settings: "wdth" 100;
+  margin-right: 10px;
 }
 
 .lineThrough {
