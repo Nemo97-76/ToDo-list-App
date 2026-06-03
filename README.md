@@ -52,6 +52,5 @@ ToDo-list-App/
 To view Demo : <a href="https://todo-list-97.netlify.app/">Demo</a>
 ----
 ## Contact
-- **GitHub**: [Nemo97-76](https://github.com/Nemo97-76)
-- **Email**: tasneemyoussef61@gmail.com
-- **LinkedIn**: https://www.linkedin.com/in/tasneem-youssef-770708278/
+- **Email**: [tasneemyoussef61@gmail.com](mailto:tasneemyoussef61@gmail.com)
+- **LinkedIn**: [tasneem youssef](https://www.linkedin.com/in/tasneem-youssef-react/)
